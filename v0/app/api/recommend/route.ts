@@ -87,7 +87,7 @@ ${actorList}
 
 각 배우별로 점수(0-100)와 간단한 평가를 해주세요. headline은 10자 이내로 작성.`
 
-    const model: ModelId = "claude-sonnet-4-20250514"
+    const model: ModelId = "gemini-3-flash-preview"
 
     const { object } = await generateObject({
       model,

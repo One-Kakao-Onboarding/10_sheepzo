@@ -56,8 +56,7 @@ ${imageBase64 ? "이미지가 제공된 경우 외모 분석에 활용하세요.
 ## 캐릭터 설명
 ${rawText}`
 
-    // 이미지 유무에 따른 모델 선택
-    const model: ModelId = imageBase64 ? "gpt-4o" : "claude-sonnet-4-20250514"
+    const model: ModelId = "gemini-3-flash-preview"
 
     // 메시지 콘텐츠 구성
     let content: MessageContent[]

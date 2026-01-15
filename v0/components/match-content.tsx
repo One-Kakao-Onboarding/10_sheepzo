@@ -17,10 +17,10 @@ import type { CharacterData } from "@/types/character"
 const AGENCY_NAMES: Record<string, string> = {
   awesome: "어썸이엔티",
   bh: "BH엔터테인먼트",
-  jwide: "J와이드컴퍼니",
+  jwide: "제이와이드컴퍼니",
   kingkong: "킹콩by스타쉽",
-  soop: "숲엔터테인먼트",
-  vast: "바스트엔터테인먼트",
+  soop: "매니지먼트 숲",
+  vast: "VAST엔터테인먼트",
 }
 
 const ACTOR_JSON_URL = "https://blobs.vusercontent.net/blob/final_actors-1aOFG5CqB5kp6yte2CUdOWm34evbPg.json"
@@ -333,7 +333,7 @@ export function MatchContent() {
               </CardHeader>
               <CardContent>
                 <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                  <TabsList className="w-full flex-wrap h-auto gap-1 mb-4">
+                  <TabsList className="w-full overflow-x-auto flex-nowrap h-auto gap-1 mb-4 justify-start scrollbar-hide">
                     <TabsTrigger value="all" className="text-xs">
                       전체 ({actorDataset.length})
                     </TabsTrigger>
@@ -357,11 +357,10 @@ export function MatchContent() {
                           <Checkbox checked={selectedActors.has(actor.name)} className="bg-background" />
                         </div>
                         <div
-                          className={`cursor-pointer transition-all ${
-                            selectedActors.has(actor.name)
-                              ? "ring-2 ring-primary rounded-lg"
-                              : "opacity-70 hover:opacity-100"
-                          }`}
+                          className={`cursor-pointer transition-all ${selectedActors.has(actor.name)
+                            ? "ring-2 ring-primary rounded-lg"
+                            : "opacity-70 hover:opacity-100"
+                            }`}
                           onClick={() => toggleActorSelection(actor.name)}
                         >
                           <ActorCard actor={actor} />

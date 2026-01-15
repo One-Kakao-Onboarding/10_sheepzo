@@ -194,3 +194,12 @@
 [data-state="closed"] .data-\[state\=closed\]\:animate-out {
   animation: exit 150ms ease-in;
 }
+
+/* 스크롤바 숨김 유틸리티 */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
