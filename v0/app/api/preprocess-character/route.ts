@@ -18,6 +18,12 @@ function parseImageData(imageBase64: string): { data: string; mediaType: ImageIn
 }
 
 const characterSchema = z.object({
+  work_title: z
+    .string()
+    .describe("작품명: 이 캐릭터가 등장하는 소설/웹툰/드라마의 제목. 텍스트에서 추출하거나 확인할 수 없으면 '미상'으로 표기"),
+  character_name: z
+    .string()
+    .describe("캐릭터 이름: 이 캐릭터의 이름. 텍스트에서 추출하거나 확인할 수 없으면 '미상'으로 표기"),
   outer_image: z
     .string()
     .describe(
@@ -49,9 +55,10 @@ export async function POST(req: Request) {
       return Response.json({ error: "캐릭터 텍스트가 비어있습니다." }, { status: 400 })
     }
 
-    const basePrompt = `캐릭터 설명을 분석하여 4가지 영역으로 구조화해주세요.
+    const basePrompt = `캐릭터 설명을 분석하여 작품명, 캐릭터 이름, 그리고 4가지 분석 영역으로 구조화해주세요.
 ${imageBase64 ? "이미지가 제공된 경우 외모 분석에 활용하세요." : ""}
-텍스트에 없는 정보는 "확인할 수 없음"으로 표기하세요.
+- 작품명과 캐릭터 이름을 반드시 추출해주세요. 텍스트에서 확인할 수 없으면 "미상"으로 표기하세요.
+- 나머지 정보도 텍스트에 없으면 "확인할 수 없음"으로 표기하세요.
 
 ## 캐릭터 설명
 ${rawText}`

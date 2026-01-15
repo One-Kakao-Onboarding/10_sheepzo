@@ -125,10 +125,18 @@ export function MatchContent() {
     }
   }, [router])
 
-  const extractCharacterName = (info: string): string => {
-    const firstLine = info.split("\n")[0]
-    const nameMatch = firstLine.match(/이름[:\s]*([^\n,]+)/) || firstLine.match(/^([가-힣a-zA-Z\s]+)/)
-    return nameMatch ? nameMatch[1].trim().slice(0, 20) : "캐릭터"
+  const getCharacterDisplayName = (processedData: CharacterData): string => {
+    const workTitle = processedData.work_title && processedData.work_title !== "미상" ? processedData.work_title : ""
+    const charName = processedData.character_name && processedData.character_name !== "미상" ? processedData.character_name : ""
+
+    if (workTitle && charName) {
+      return `${charName}(${workTitle})`
+    } else if (charName) {
+      return charName
+    } else if (workTitle) {
+      return workTitle
+    }
+    return "캐릭터"
   }
 
   const toggleActorSelection = (actorName: string) => {
@@ -189,8 +197,9 @@ export function MatchContent() {
         const resultsData = {
           recommendations: data.recommendations,
           actorDatasets: selectedActorsData,
-          characterName: extractCharacterName(characterData.characterInfo),
+          characterName: getCharacterDisplayName(characterData.processedCharacter),
           characterImageUrl: characterData.characterImageUrl || null,
+          processedCharacter: characterData.processedCharacter,
         }
 
         sessionStorage.setItem("resultsData", JSON.stringify(resultsData))
@@ -219,8 +228,9 @@ export function MatchContent() {
       const resultsData = {
         recommendations: data.recommendations,
         actorDatasets: selectedActorsData,
-        characterName: extractCharacterName(characterData.characterInfo),
+        characterName: getCharacterDisplayName(characterData.processedCharacter),
         characterImageUrl: characterData.characterImageUrl || null,
+        processedCharacter: characterData.processedCharacter,
       }
 
       sessionStorage.setItem("resultsData", JSON.stringify(resultsData))
