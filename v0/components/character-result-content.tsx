@@ -86,14 +86,7 @@ export function CharacterResultContent() {
           분석 완료
         </Badge>
         <h1 className="text-3xl font-bold text-foreground mb-2">캐릭터 분석 결과</h1>
-        <p className="text-muted-foreground">
-          AI가 분석한 캐릭터의 특성입니다
-          {usedCache && (
-            <Badge variant="outline" className="ml-2 text-xs">
-              캐시됨
-            </Badge>
-          )}
-        </p>
+        <p className="text-muted-foreground">AI가 분석한 캐릭터의 특성입니다</p>
       </header>
 
       <div className="space-y-8">

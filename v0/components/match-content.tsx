@@ -194,6 +194,10 @@ export function MatchContent() {
         }
 
         sessionStorage.setItem("resultsData", JSON.stringify(resultsData))
+
+        // 캐시 사용 시에도 7초 로딩 표시
+        await new Promise((resolve) => setTimeout(resolve, 7000))
+
         router.push("/results")
         return
       }

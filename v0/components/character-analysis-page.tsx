@@ -95,6 +95,10 @@ export function CharacterAnalysisPage() {
           usedCache: true,
         }
         sessionStorage.setItem("characterAnalysisResult", JSON.stringify(dataToPass))
+
+        // 캐시 사용 시에도 7초 로딩 표시
+        await new Promise((resolve) => setTimeout(resolve, 7000))
+
         router.push("/character-result")
         return
       }
