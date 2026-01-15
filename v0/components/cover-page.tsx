@@ -7,12 +7,28 @@ import { Button } from "@/components/ui/button"
 
 const webtoonImages = [
   {
-    src: "/images/1z2wfe05w8-1.jpg",
-    alt: "전지적 독자 시점",
+    src: "/images/cheese.webp",
+    alt: "웹툰 씬",
+  },
+  {
+    src: "/images/company_love.jpeg",
+    alt: "사내맞선",
   },
   {
     src: "/images/9791193821046.jpg",
     alt: "나혼자만 레벨업",
+  },
+  {
+    src: "/images/revolution.jpg",
+    alt: "연애혁명",
+  },
+  {
+    src: "/images/debut.jpg",
+    alt: "데뷔못하면죽는병걸림",
+  },
+  {
+    src: "/images/b5qq77cumfn51ozzn-hw1avn5qfvuapzgxf0tnls-wslcqaznctsn-fkbd8jrwwfimi8odyn8ymajhpzd9knhq.webp",
+    alt: "바니와 오빠들",
   },
   {
     src: "/images/oneday_princess.jpg",
@@ -23,28 +39,12 @@ const webtoonImages = [
     alt: "유미의 세포들",
   },
   {
-    src: "/images/original.jpg",
-    alt: "여신강림",
-  },
-  {
-    src: "/images/e1-84-83-e1-85-a1-e1-84-8b-e1-85-ae-e1-86-ab-e1-84-85-e1-85-a9-e1-84-83-e1-85-b3.jpeg",
-    alt: "데뷔 못 하면 죽는 병 걸림",
-  },
-  {
-    src: "/images/b5qq77cumfn51ozzn-hw1avn5qfvuapzgxf0tnls-wslcqaznctsn-fkbd8jrwwfimi8odyn8ymajhpzd9knhq.webp",
-    alt: "바니와 오빠들",
-  },
-  {
     src: "/images/thumbnail-imag19-cbaaa393-baab-456a-b311-827953e4cf2e.jpg",
     alt: "로맨스 웹툰",
   },
   {
-    src: "/images/20150403074233921990.jpg",
-    alt: "치즈인더트랩",
-  },
-  {
-    src: "/images/2015072916224019955-1.avif",
-    alt: "웹툰 씬",
+    src: "/images/1z2wfe05w8-1.jpg",
+    alt: "전지적 독자 시점",
   },
 ]
 
