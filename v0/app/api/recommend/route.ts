@@ -1,4 +1,5 @@
-import { generateObject } from "ai"
+import { generateObject } from "@/lib/llm"
+import type { ModelId } from "@/lib/llm"
 import { z } from "zod"
 import type { ActorData } from "@/types/actor"
 import type { CharacterData } from "@/types/character"
@@ -86,8 +87,10 @@ ${actorList}
 
 각 배우별로 점수(0-100)와 간단한 평가를 해주세요. headline은 10자 이내로 작성.`
 
+    const model: ModelId = "claude-sonnet-4-20250514"
+
     const { object } = await generateObject({
-      model: "anthropic/claude-sonnet-4-20250514",
+      model,
       schema: recommendationSchema,
       prompt,
     })

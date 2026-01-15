@@ -1,5 +1,21 @@
-import { generateObject } from "ai"
+import { generateObject } from "@/lib/llm"
+import type { ModelId, MessageContent, ImageInput } from "@/lib/llm"
 import { z } from "zod"
+
+// data URL에서 미디어 타입과 base64 데이터 추출
+function parseImageData(imageBase64: string): { data: string; mediaType: ImageInput["mediaType"] } {
+  const dataUrlMatch = imageBase64.match(/^data:([^;]+);base64,(.+)$/)
+  if (dataUrlMatch) {
+    const mimeType = dataUrlMatch[1] as ImageInput["mediaType"]
+    const data = dataUrlMatch[2]
+    // 지원되는 타입만 허용
+    if (["image/jpeg", "image/png", "image/gif", "image/webp"].includes(mimeType)) {
+      return { data, mediaType: mimeType }
+    }
+  }
+  // data URL 형식이 아니면 그대로 반환 (기본값 jpeg)
+  return { data: imageBase64, mediaType: "image/jpeg" }
+}
 
 const characterSchema = z.object({
   outer_image: z
@@ -40,27 +56,32 @@ ${imageBase64 ? "이미지가 제공된 경우 외모 분석에 활용하세요.
 ## 캐릭터 설명
 ${rawText}`
 
-    const messages: Array<{
-      role: "user"
-      content: Array<{ type: "text"; text: string } | { type: "image"; image: string }>
-    }> = [
-      {
-        role: "user",
-        content: imageBase64
-          ? [
-              { type: "image", image: imageBase64 },
-              { type: "text", text: basePrompt },
-            ]
-          : [{ type: "text", text: basePrompt }],
-      },
-    ]
+    // 이미지 유무에 따른 모델 선택
+    const model: ModelId = imageBase64 ? "gpt-4o" : "claude-sonnet-4-20250514"
 
-    const model = imageBase64 ? "openai/gpt-4o" : "anthropic/claude-sonnet-4-20250514"
+    // 메시지 콘텐츠 구성
+    let content: MessageContent[]
+    if (imageBase64) {
+      const { data, mediaType } = parseImageData(imageBase64)
+      content = [
+        {
+          type: "image",
+          image: {
+            type: "base64",
+            data,
+            mediaType,
+          },
+        },
+        { type: "text", text: basePrompt },
+      ]
+    } else {
+      content = [{ type: "text", text: basePrompt }]
+    }
 
     const { object } = await generateObject({
       model,
       schema: characterSchema,
-      messages,
+      messages: [{ role: "user", content }],
     })
 
     return Response.json(object)
